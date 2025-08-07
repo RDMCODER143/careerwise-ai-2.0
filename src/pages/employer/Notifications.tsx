@@ -60,7 +60,7 @@ const Notifications = () => {
     switch (priority) {
       case "high": return "bg-red-500";
       case "medium": return "bg-yellow-500";
-      case "low": return "bg-blue-500";
+      case "low": return "bg-green-500";
       default: return "bg-gray-500";
     }
   };
@@ -70,10 +70,10 @@ const Notifications = () => {
       <AppSidebar userRole="employer" />
       
       <main className="flex-1 overflow-auto">
-        <div className="bg-gradient-hero text-white p-6 shadow-elegant">
+        <div className="bg-gradient-to-r from-green-600 to-green-700 text-white p-6 shadow-lg">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-3xl font-bold mb-2">Notifications</h1>
-            <p className="text-white/90 text-lg">
+            <p className="text-green-100 text-lg">
               Stay updated with all your recruitment activities
             </p>
           </div>
@@ -82,7 +82,7 @@ const Notifications = () => {
         <div className="max-w-4xl mx-auto p-6 space-y-6">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">Recent Notifications</h2>
-            <Button variant="outline">
+            <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-50">
               <CheckCircle className="w-4 h-4 mr-2" />
               Mark All as Read
             </Button>
@@ -90,7 +90,7 @@ const Notifications = () => {
 
           <div className="space-y-4">
             {notifications.map((notification) => (
-              <Card key={notification.id} className={`bg-card shadow-card border-0 hover:shadow-elegant transition-all duration-300 ${notification.unread ? 'border-l-4 border-l-primary' : ''}`}>
+              <Card key={notification.id} className={`bg-card shadow-card border-0 hover:shadow-lg hover:border-green-200 transition-all duration-300 ${notification.unread ? 'border-l-4 border-l-green-600' : ''}`}>
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between">
                     <div className="flex items-start gap-4">
@@ -109,12 +109,12 @@ const Notifications = () => {
                             {notification.priority} priority
                           </Badge>
                           {notification.unread && (
-                            <Badge className="bg-primary text-white">New</Badge>
+                            <Badge className="bg-green-600 text-white hover:bg-green-700">New</Badge>
                           )}
                         </div>
                       </div>
                     </div>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" className="hover:bg-green-50">
                       <CheckCircle className="w-4 h-4" />
                     </Button>
                   </div>

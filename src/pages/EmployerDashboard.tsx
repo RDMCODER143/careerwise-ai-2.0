@@ -1,3 +1,4 @@
+
 import AppSidebar from "@/components/AppSidebar";
 import ChatBot from "@/components/ChatBot";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -73,59 +74,59 @@ const EmployerDashboard = () => {
       <AppSidebar userRole="employer" />
       
       <div className="flex-1 overflow-auto">
-        {/* Header */}
-        <div className="bg-white border-b border-gray-200 px-6 py-4">
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-600 mt-1">Welcome back, {user.full_name}! Here's a snapshot of your activity.</p>
+        {/* Header with green theme */}
+        <div className="bg-gradient-to-r from-green-600 to-green-700 text-white border-b border-green-600 px-6 py-4">
+          <h1 className="text-2xl font-bold text-white">Dashboard</h1>
+          <p className="text-green-100 mt-1">Welcome back, {user.full_name}! Here's a snapshot of your activity.</p>
         </div>
 
         <div className="p-6">
-          {/* Stats Cards */}
+          {/* Stats Cards with green theme */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-0">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-blue-600 text-sm font-medium">Active Jobs</p>
-                    <p className="text-xl font-bold text-blue-900">{activeJobs}</p>
-                  </div>
-                  <Briefcase className="h-8 w-8 text-blue-500" />
-                </div>
-              </CardContent>
-            </Card>
-
             <Card className="bg-gradient-to-br from-green-50 to-green-100 border-0">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-green-600 text-sm font-medium">Total Applications</p>
-                    <p className="text-xl font-bold text-green-900">{totalApplications}</p>
+                    <p className="text-green-600 text-sm font-medium">Active Jobs</p>
+                    <p className="text-xl font-bold text-green-900">{activeJobs}</p>
                   </div>
-                  <Users className="h-8 w-8 text-green-500" />
+                  <Briefcase className="h-8 w-8 text-green-500" />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-yellow-50 to-yellow-100 border-0">
+            <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-0">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-yellow-600 text-sm font-medium">New Messages</p>
-                    <p className="text-xl font-bold text-yellow-900">16</p>
+                    <p className="text-emerald-600 text-sm font-medium">Total Applications</p>
+                    <p className="text-xl font-bold text-emerald-900">{totalApplications}</p>
                   </div>
-                  <Mail className="h-8 w-8 text-yellow-500" />
+                  <Users className="h-8 w-8 text-emerald-500" />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-0">
+            <Card className="bg-gradient-to-br from-teal-50 to-teal-100 border-0">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-purple-600 text-sm font-medium">Profile Views</p>
-                    <p className="text-xl font-bold text-purple-900">244</p>
+                    <p className="text-teal-600 text-sm font-medium">New Messages</p>
+                    <p className="text-xl font-bold text-teal-900">16</p>
                   </div>
-                  <Users className="h-8 w-8 text-purple-500" />
+                  <Mail className="h-8 w-8 text-teal-500" />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-lime-50 to-lime-100 border-0">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-lime-600 text-sm font-medium">Profile Views</p>
+                    <p className="text-xl font-bold text-lime-900">244</p>
+                  </div>
+                  <Users className="h-8 w-8 text-lime-500" />
                 </div>
               </CardContent>
             </Card>
@@ -151,7 +152,7 @@ const EmployerDashboard = () => {
                   </div>
                 ) : (
                   jobPostings.slice(0, 5).map((job) => (
-                    <div key={job.id} className="p-4 border border-gray-100 rounded-lg hover:shadow-md transition-shadow">
+                    <div key={job.id} className="p-4 border border-gray-100 rounded-lg hover:shadow-md hover:border-green-200 transition-all">
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
@@ -161,6 +162,7 @@ const EmployerDashboard = () => {
                                 job.status === 'Active' ? 'default' : 
                                 job.status === 'Paused' ? 'secondary' : 'outline'
                               }
+                              className={job.status === 'Active' ? 'bg-green-600 hover:bg-green-700' : ''}
                             >
                               {job.status}
                             </Badge>
@@ -174,6 +176,7 @@ const EmployerDashboard = () => {
                           <Button 
                             variant="ghost" 
                             size="sm"
+                            className="hover:bg-green-50 hover:text-green-700"
                             onClick={() => setEditingJob(job)}
                           >
                             <Edit className="w-4 h-4" />
@@ -181,7 +184,7 @@ const EmployerDashboard = () => {
                           <Button 
                             variant="ghost" 
                             size="sm"
-                            className="text-red-600 hover:text-red-700"
+                            className="text-red-600 hover:text-red-700 hover:bg-red-50"
                             onClick={() => deleteJobPosting(job.id)}
                           >
                             <Trash2 className="w-4 h-4" />
@@ -210,7 +213,7 @@ const EmployerDashboard = () => {
                   </div>
                 ) : (
                   candidates.slice(0, 5).map((candidate) => (
-                    <div key={candidate.id} className="p-4 border border-gray-100 rounded-lg hover:shadow-md transition-shadow">
+                    <div key={candidate.id} className="p-4 border border-gray-100 rounded-lg hover:shadow-md hover:border-green-200 transition-all">
                       <div className="flex items-center justify-between">
                         <div>
                           <h3 className="font-semibold text-gray-900">{candidate.full_name}</h3>
@@ -219,7 +222,7 @@ const EmployerDashboard = () => {
                             Applied for {candidate.job_posting_id} • {getTimeAgo(candidate.applied_at)}
                           </p>
                         </div>
-                        <Badge variant="secondary">{candidate.status}</Badge>
+                        <Badge variant="secondary" className="bg-green-100 text-green-800">{candidate.status}</Badge>
                       </div>
                     </div>
                   ))

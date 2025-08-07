@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -34,6 +35,17 @@ All colors MUST be HSL for consistency and theming.
     --accent-foreground: 0 0% 100%;
     --accent-glow: 268 83% 68%;
 
+    /* Employer Theme - Green Based */
+    --employer-primary: 142 76% 36%;
+    --employer-primary-foreground: 0 0% 100%;
+    --employer-primary-glow: 142 76% 46%;
+    --employer-secondary: 134 61% 41%;
+    --employer-secondary-foreground: 0 0% 100%;
+    --employer-secondary-glow: 134 61% 51%;
+    --employer-accent: 120 100% 25%;
+    --employer-accent-foreground: 0 0% 100%;
+    --employer-accent-glow: 120 100% 35%;
+
     /* Neutral Tones */
     --muted: 220 13% 95%;
     --muted-foreground: 220 9% 46%;
@@ -54,10 +66,18 @@ All colors MUST be HSL for consistency and theming.
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100% / 0.1) 0%, hsl(0 0% 100% / 0.05) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
 
+    /* Employer Gradients */
+    --gradient-employer-hero: linear-gradient(135deg, hsl(var(--employer-primary)) 0%, hsl(var(--employer-accent)) 100%);
+    --gradient-employer-success: linear-gradient(135deg, hsl(var(--employer-secondary)) 0%, hsl(var(--employer-secondary-glow)) 100%);
+
     /* Shadows & Effects */
     --shadow-elegant: 0 10px 40px -10px hsl(var(--primary) / 0.2);
     --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.3);
     --shadow-card: 0 4px 20px -2px hsl(222 15% 15% / 0.1);
+
+    /* Employer Shadows */
+    --shadow-employer-elegant: 0 10px 40px -10px hsl(var(--employer-primary) / 0.2);
+    --shadow-employer-glow: 0 0 40px hsl(var(--employer-primary-glow) / 0.3);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
