@@ -43,7 +43,7 @@ type RegisterForm = z.infer<typeof registerSchema>;
 export function AuthForm({ selectedRole, onSuccess }: AuthFormProps) {
   const [activeTab, setActiveTab] = useState("login");
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn, signUp, signInWithGoogle, signInWithLinkedIn } = useAuth();
+  const { signIn, signUp, signInWithGoogle, signInWithLinkedIn, profile } = useAuth();
   const navigate = useNavigate();
 
   const loginForm = useForm<LoginForm>({
@@ -66,15 +66,19 @@ export function AuthForm({ selectedRole, onSuccess }: AuthFormProps) {
   });
 
   const handleAuthSuccess = () => {
-    // Redirect based on role
-    if (selectedRole === "job_seeker") {
-      navigate("/job-seeker-dashboard", { replace: true });
-    } else if (selectedRole === "employer") {
-      navigate("/employer-dashboard", { replace: true });
-    } else {
-      navigate("/", { replace: true });
-    }
-    onSuccess?.();
+    // Wait a moment for profile to be loaded, then redirect based on role
+    setTimeout(() => {
+      if (profile?.role === "admin" || profile?.app_role === "admin") {
+        navigate("/admin", { replace: true });
+      } else if (selectedRole === "job_seeker" || profile?.role === "job_seeker") {
+        navigate("/job-seeker-dashboard", { replace: true });
+      } else if (selectedRole === "employer" || profile?.role === "employer") {
+        navigate("/employer-dashboard", { replace: true });
+      } else {
+        navigate("/", { replace: true });
+      }
+      onSuccess?.();
+    }, 100);
   };
 
   const onLogin = async (data: LoginForm) => {
