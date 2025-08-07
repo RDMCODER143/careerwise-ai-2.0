@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
@@ -8,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Shield, Eye, EyeOff } from "lucide-react";
 import AdminSetup from "@/components/AdminSetup";
+import AdminTestPanel from "@/components/AdminTestPanel";
 
 export default function AdminAuth() {
   const [email, setEmail] = useState("");
@@ -16,6 +18,7 @@ export default function AdminAuth() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showSetup, setShowSetup] = useState(false);
+  const [showTestPanel, setShowTestPanel] = useState(false);
   const { signIn, user, profile, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -81,89 +84,107 @@ export default function AdminAuth() {
 
   return (
     <div className="min-h-screen bg-red-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md border-red-200">
-        <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-16 h-16 bg-red-600 rounded-full flex items-center justify-center">
-            <Shield className="w-8 h-8 text-white" />
-          </div>
-          <div>
-            <CardTitle className="text-2xl font-bold text-red-900">Admin Login</CardTitle>
-            <p className="text-red-700 mt-2">Access the admin dashboard</p>
-          </div>
-        </CardHeader>
-        
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <Alert className="border-red-200 bg-red-50">
-                <AlertDescription className="text-red-700">{error}</AlertDescription>
-              </Alert>
-            )}
-            
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-red-700">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your admin email"
-                className="border-red-200 focus:border-red-400 focus:ring-red-400"
-                disabled={isLoading}
-                required
-              />
+      <div className="w-full max-w-4xl flex gap-6">
+        {/* Login Form */}
+        <Card className="w-full max-w-md border-red-200">
+          <CardHeader className="text-center space-y-4">
+            <div className="mx-auto w-16 h-16 bg-red-600 rounded-full flex items-center justify-center">
+              <Shield className="w-8 h-8 text-white" />
             </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-red-700">Password</Label>
-              <div className="relative">
+            <div>
+              <CardTitle className="text-2xl font-bold text-red-900">Admin Login</CardTitle>
+              <p className="text-red-700 mt-2">Access the admin dashboard</p>
+            </div>
+          </CardHeader>
+          
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {error && (
+                <Alert className="border-red-200 bg-red-50">
+                  <AlertDescription className="text-red-700">{error}</AlertDescription>
+                </Alert>
+              )}
+              
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-red-700">Email</Label>
                 <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
-                  className="border-red-200 focus:border-red-400 focus:ring-red-400 pr-10"
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your admin email"
+                  className="border-red-200 focus:border-red-400 focus:ring-red-400"
                   disabled={isLoading}
                   required
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-red-600 hover:text-red-700"
-                  disabled={isLoading}
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-red-700">Password</Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                    className="border-red-200 focus:border-red-400 focus:ring-red-400 pr-10"
+                    disabled={isLoading}
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-red-600 hover:text-red-700"
+                    disabled={isLoading}
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+              
+              <Button
+                type="submit"
+                className="w-full bg-red-600 hover:bg-red-700 text-white"
+                disabled={isLoading}
+              >
+                {isLoading ? "Signing in..." : "Sign In"}
+              </Button>
+            </form>
+            
+            <div className="mt-6 text-center space-y-4">
+              <p className="text-sm text-red-600">
+                Only authorized administrators can access this area
+              </p>
+              
+              <div className="border-t border-red-200 pt-4 space-y-2">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowSetup(true)}
+                  className="w-full text-red-600 border-red-300 hover:bg-red-50"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
+                  First Time? Set Up Admin Account
+                </Button>
+                
+                <Button
+                  variant="ghost"
+                  onClick={() => setShowTestPanel(!showTestPanel)}
+                  className="w-full text-red-600 hover:bg-red-50 text-sm"
+                >
+                  {showTestPanel ? "Hide" : "Show"} Debug Panel
+                </Button>
               </div>
             </div>
-            
-            <Button
-              type="submit"
-              className="w-full bg-red-600 hover:bg-red-700 text-white"
-              disabled={isLoading}
-            >
-              {isLoading ? "Signing in..." : "Sign In"}
-            </Button>
-          </form>
-          
-          <div className="mt-6 text-center space-y-4">
-            <p className="text-sm text-red-600">
-              Only authorized administrators can access this area
-            </p>
-            
-            <div className="border-t border-red-200 pt-4">
-              <Button
-                variant="outline"
-                onClick={() => setShowSetup(true)}
-                className="w-full text-red-600 border-red-300 hover:bg-red-50"
-              >
-                First Time? Set Up Admin Account
-              </Button>
-            </div>
+          </CardContent>
+        </Card>
+
+        {/* Debug Panel */}
+        {showTestPanel && (
+          <div className="w-full max-w-md">
+            <AdminTestPanel />
           </div>
-        </CardContent>
-      </Card>
+        )}
+      </div>
     </div>
   );
 }
